@@ -1,46 +1,81 @@
 <template>
   <div>
-    <form @submit.prevent="fetchHost">
-      <input type="text" v-model="url" class="mr-3 border-2 px-2 py-1" />
+    <h1 class="font-semibold custom-blue text-3xl text-center">
+      Detect the host for the inserted website
+    </h1>
+    <form @submit.prevent="fetchHost" class="flex justify-center mt-5">
+      <input
+        type="text"
+        v-model="url"
+        class="
+          mr-3
+          border-2 border-green-500
+          px-2
+          py-1
+          rounded
+          w-full
+          sm:w-3/5
+          lg:w-2/5
+        "
+      />
       <button
         type="submit"
-        class="px-4 py-1 bg-blue-500 hover:bg-blue-700 text-white"
+        class="
+          px-5
+          py-2
+          bg-green-500
+          hover:bg-green-700
+          text-white
+          rounded
+          font-semibold
+          uppercase
+        "
       >
         Scan
       </button>
     </form>
-    <div v-if="error" class="text-red-500 font-bold mt-4">
+    <div v-if="error" class="text-red-500 font-bold mt-5 text-center text-xl">
       {{ error }}
     </div>
-    <div class="mt-4">
+    <div class="mt-5">
       <div v-if="info">
         <ul v-for="(data, index) in info" :key="index">
-          <li>IP: {{ data.ip }}</li>
-          <li>Type: {{ data.type }}</li>
-          <li>Isp ID: {{ data.isp_id }}</li>
-          <li>Isp name: {{ data.isp_name }}</li>
+          <li><span class="font-semibold">IP:</span> {{ data.ip }}</li>
+          <li><span class="font-semibold">Type:</span> {{ data.type }}</li>
+          <li><span class="font-semibold">Isp ID:</span> {{ data.isp_id }}</li>
           <li>
-            Isp URL:
-            <a :href="data.isp_url" target="_blank">{{ data.isp_url }}</a>
+            <span class="font-semibold">Isp name:</span> {{ data.isp_name }}
+          </li>
+          <li>
+            <span class="font-semibold">Isp URL:</span>
+            <a :href="data.isp_url" target="_blank"> {{ data.isp_url }}</a>
           </li>
         </ul>
       </div>
-      <div class="mt-4" v-if="getLastSearchHost">
-        <div v-for="(lastSearch, index) in getLastSearchHost" :key="index">
-          <h3>{{ lastSearch[0] }}</h3>
-          <ul v-for="(data, index) in lastSearch[1]" :key="index">
-            <li>IP: {{ data.ip }}</li>
-            <li>Type: {{ data.type }}</li>
-            <li>Isp ID: {{ data.isp_id }}</li>
-            <li>Isp name: {{ data.isp_name }}</li>
+      <div class="mt-5" v-if="getLastSearchHost">
+        <h2 class="text-xl text-green-700 font-bold">Your last 3 URLs</h2>
+        <div
+          v-for="(lastSearch, index) in getLastSearchHost"
+          :key="index"
+          class="mt-4 last-search relative"
+        >
+          <h3 class="font-bold custom-blue text-lg"> {{ lastSearch[0] }}</h3>
+          <ul v-for="(data, index) in lastSearch[1]" :key="index" class="mt-3">
+            <li><span class="font-semibold">IP:</span> {{ data.ip }}</li>
+            <li><span class="font-semibold">Type:</span> {{ data.type }}</li>
             <li>
-              Isp URL:
-              <a :href="data.isp_url" target="_blank">{{ data.isp_url }}</a>
+              <span class="font-semibold">Isp ID:</span> {{ data.isp_id }}
+            </li>
+            <li>
+              <span class="font-semibold">Isp name:</span> {{ data.isp_name }}
+            </li>
+            <li>
+              <span class="font-semibold">Isp URL: </span>
+              <a :href="data.isp_url" target="_blank"> {{ data.isp_url }}</a>
             </li>
           </ul>
         </div>
       </div>
-      <div></div>
     </div>
   </div>
 </template>
@@ -91,4 +126,17 @@ export default {
 </script>
 
 <style scoped>
+.last-search:after {
+  position: absolute;
+  left: 0;
+  bottom: -11px;
+  background-color: #42b983;
+  width: 100%;
+  height: 2px;
+  content: "";
+}
+
+.last-search {
+  width: fit-content;
+}
 </style>
