@@ -37,7 +37,7 @@
     <div v-if="error" class="text-red-500 font-bold mt-5 text-center text-xl">
       {{ error }}
     </div>
-    <div class="mt-5">
+    <div class="mt-5 text-center">
       <div v-if="info">
         <ul v-for="(data, index) in info" :key="index">
           <li><span class="font-semibold">IP:</span> {{ data.ip }}</li>
@@ -57,7 +57,7 @@
         <div
           v-for="(lastSearch, index) in getLastSearchHost"
           :key="index"
-          class="mt-4 last-search relative"
+          class="mt-4 last-search relative flex flex-col justify-center items-center content-center w-full"
         >
           <h3 class="font-bold custom-blue text-lg"> {{ lastSearch[0] }}</h3>
           <ul v-for="(data, index) in lastSearch[1]" :key="index" class="mt-3">
@@ -128,15 +128,12 @@ export default {
 <style scoped>
 .last-search:after {
   position: absolute;
-  left: 0;
-  bottom: -11px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: -12px;
   background-color: #42b983;
-  width: 100%;
+  width: 70%;
   height: 2px;
   content: "";
-}
-
-.last-search {
-  width: fit-content;
 }
 </style>
